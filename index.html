@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+
+  <link
+    rel="icon"
+    type="image/jpeg"
+    href="https://images.zite.com/zite/orgid-362/9J6ASdTS3t64MWPGoURrSJ/pasted-image-1745461378540.jpg"
+    sizes="24x24"
+  />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Victus Global BD Verification</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    :root {
+      --green-dark: #0c2d24;
+      --yellow: #fadb14;
+      --green-btn: #00e092;
+      --green-btn-hover: #00c783;
+      --red-error: #ef4444;
+      --green-success: #10b981;
+      --gray-bg: #f9fafb;
+      --gray-border: #d1d5db;
+      --gray-text: #6b7280;
+      --box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    /* reset & full-height flex centering */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height:100%; width:100%; }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      background-color: var(--gray-bg);
+      font-family: 'Inter', sans-serif;
+      color: #1f2937;
+      line-height: 1.5;
+    }
+
+    /* Tailwind-style wrapper */
+    .page-wrapper {
+      flex: 1;
+      width: 100%;
+      padding: 1.5rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* Main container */
+    .container {
+      width: 100%;
+      max-width: 700px;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--box-shadow);
+    }
+
+    /* HEADER */
+    .header {
+      background-color: var(--green-dark);
+      color: #fff;
+      padding: 2rem;
+    }
+    .header .logo {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .header .logo img {
+      margin-right: 0;
+    }
+    .h-10 { height: 48px !important; }
+    .h-6  { height: 24px !important; }
+
+    .header .title {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    .header .subtitle {
+      margin-top: 1rem;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+    .header .subtitle span {
+      color: var(--yellow);
+      font-weight: 600;
+    }
+
+    /* FORM */
+    .form {
+      padding: 2rem;
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-group label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      font-size: 1.1rem;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .radio-group input[type="radio"] {
+      display: none;
+    }
+    .radio-group label {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1.25rem 0.75rem 2.75rem;
+      border: 1px solid var(--gray-border);
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #374151;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      background: #fff;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+    .radio-group label:hover {
+      border-color: var(--green-btn);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    }
+    .radio-group label::before {
+      content: '';
+      position: absolute;
+      left: 1.25rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--green-btn);
+      border-radius: 50%;
+      background: transparent;
+      transition: all 0.2s ease;
+    }
+    .radio-group input[type="radio"]:checked + label::before {
+      background: var(--green-btn);
+    }
+    .radio-group input[type="radio"]:checked + label {
+      border-color: var(--green-btn);
+      background-color: rgba(0, 224, 146, 0.05);
+    }
+
+    /* SVG utilities */
+    .h-5 { height: 20px !important; }
+    .w-5 { width: 20px !important; }
+    .mr-2 { margin-right: 0.5rem !important; }
+    .text-blue-500 { color: #3b82f6; }
+    .text-blue-400 { color: #60a5fa; }
+
+    .form-group input[type="text"] {
+      width: 100%;
+      padding: 0.875rem 1.25rem;
+      border: 1px solid var(--gray-border);
+      border-radius: 8px;
+      font-size: 1rem;
+      color: #111827;
+      transition: all 0.2s ease;
+      background: #fff;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+    .form-group input::placeholder {
+      color: var(--gray-text);
+      opacity: 0.8;
+    }
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--green-btn);
+      box-shadow: 0 0 0 3px rgba(0, 224, 146, 0.2);
+    }
+
+    /* Verification feedback cards */
+    .feedback-container {
+      margin-top: 1rem;
+    }
+    
+    .feedback-card {
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      margin-bottom: 0.75rem;
+      font-size: 0.9375rem;
+      display: flex;
+      align-items: flex-start;
+      animation: fadeIn 0.3s ease-out;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .feedback-success {
+      background-color: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #047857;
+    }
+    
+    .feedback-error {
+      background-color: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #991b1b;
+    }
+    
+    .feedback-warning {
+      background-color: rgba(250, 204, 21, 0.1);
+      border: 1px solid rgba(250, 204, 21, 0.3);
+      color: #92400e;
+    }
+    
+    .feedback-icon {
+      margin-right: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    /* Button */
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 48px;
+      background-color: var(--green-btn);
+      color: #000;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .btn:hover {
+      background-color: var(--green-btn-hover);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      transform: translateY(-1px);
+    }
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      padding: 1.25rem;
+      font-size: 0.9375rem;
+      color: #6b7280;
+      background-color: #fafafa;
+      border-top: 1px solid #eee;
+    }
+    .footer img {
+      vertical-align: middle;
+      margin: 0 0.5rem;
+    }
+
+    /* Helper text */
+    #helper-text {
+      color: var(--gray-text);
+      display: block;
+      margin-top: 0.5rem;
+      font-size: 0.9375rem;
+    }
+
+    /* Media Queries for smaller screens */
+    @media (max-width: 640px) {
+      .page-wrapper {
+        padding: 1rem;
+      }
+      .header {
+        padding: 1.5rem;
+      }
+      .form {
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header {
+        padding: 1.25rem;
+      }
+      .header .title {
+        font-size: 1.25rem;
+      }
+      .header .subtitle {
+        font-size: 0.9375rem;
+      }
+      .form {
+        padding: 1.25rem;
+      }
+      .radio-group label {
+        padding: 0.625rem 1rem 0.625rem 2.5rem;
+        font-size: 0.9375rem;
+      }
+      .radio-group label::before {
+        left: 1rem;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .radio-group {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+      .radio-group label {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <div class="container">
+
+      <!-- Header -->
+      <div class="header">
+        <div class="logo">
+          <img
+            src="https://images.zite.com/zite/orgid-362/9J6ASdTS3t64MWPGoURrSJ/pasted-image-1745461378540.jpg"
+            alt="Victus Global Logo"
+            class="h-10"
+          />
+          <div class="title">Victus Global BD Verification</div>
+        </div>
+        <div class="subtitle">
+          Verify our BDs, to proceed with the conversation.<br/>
+          Note: <span>Beware of scammers, a BD will never ask you to send funds.</span>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <form class="form" id="verification-form">
+        <div class="form-group">
+          <label>Platform</label>
+          <div class="radio-group">
+            <input type="radio" name="platform" id="tg" checked value="telegram"/>
+            <label for="tg">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                   fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round"
+                   class="lucide lucide-at-sign h-5 w-5 mr-2 text-blue-500">
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"></path>
+              </svg>
+              Telegram Username
+            </label>
+
+            <input type="radio" name="platform" id="tw" value="twitter"/>
+            <label for="tw">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                   fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round"
+                   class="lucide lucide-twitter h-5 w-5 mr-2 text-blue-400">
+                <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6
+                         2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5
+                         c2.2 2.6 5.6 4.1 9 4-.9-4.2
+                         4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z">
+                </path>
+              </svg>
+              X/Twitter Username
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="username">Username <span style="color:#ef4444;">*</span></label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="e.g. @username, username, or https://t.me/username"
+            required
+          />
+          <small id="helper-text">Enter a Telegram username with or without @ or full URL</small>
+          <div id="feedback-container" class="feedback-container"></div>
+        </div>
+
+        <button type="submit" class="btn">Verify BD</button>
+      </form>
+
+      <!-- Footer -->
+      <div class="footer">
+        Powered by
+        <img
+          src="https://images.zite.com/zite/orgid-362/265hEMDDrC2s6RJrTK9RdW/pasted-image-1745461398016.webp"
+          alt="Victus Global"
+          class="h-6"
+        />
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Database of verified BDs by platform
+    const verifiedBDs = {
+      telegram: ['alice', 'bob', 'victus', 'john_doe', 'sarah_connor'],
+      twitter: ['charlie', 'david', 'victus_official', 'mike_tyson']
+    };
+
+    const form = document.getElementById('verification-form');
+    const usernameInput = document.getElementById('username');
+    const helperText = document.getElementById('helper-text');
+    const feedbackContainer = document.getElementById('feedback-container');
+    const platformRadios = document.querySelectorAll('input[name="platform"]');
+
+    // Update helper text when platform changes
+    platformRadios.forEach(radio => {
+      radio.addEventListener('change', () => {
+        helperText.textContent = radio.value === 'telegram' 
+          ? 'Enter a Telegram username with or without @ or full URL'
+          : 'Enter an X/Twitter username with or without @ or full URL';
+      });
+    });
+
+    // Clean username input (remove @, URLs, etc.)
+    function cleanUsername(username) {
+      return username
+        .toLowerCase()
+        .replace(/^@/, '')
+        .replace(/https?:\/\/(t\.me|twitter\.com|x\.com)\//, '')
+        .trim();
+    }
+
+    // Create a feedback card
+    function createFeedbackCard(type, message) {
+      const card = document.createElement('div');
+      card.className = `feedback-card feedback-${type}`;
+      
+      const icon = document.createElement('span');
+      icon.className = 'feedback-icon';
+      icon.textContent = type === 'success' ? '✓' : type === 'error' ? '✗' : '⚠';
+      
+      const text = document.createElement('span');
+      text.textContent = message;
+      
+      card.appendChild(icon);
+      card.appendChild(text);
+      return card;
+    }
+
+    // Handle form submission
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      feedbackContainer.innerHTML = '';
+      
+      const username = usernameInput.value.trim();
+      const platform = document.querySelector('input[name="platform"]:checked').value;
+      const cleanName = cleanUsername(username);
+      
+      if (!username) {
+        feedbackContainer.appendChild(
+          createFeedbackCard('error', 'Please enter a username to verify')
+        );
+        return;
+      }
+      
+      // Check if username is verified
+      const isVerified = verifiedBDs[platform].some(bd => 
+        bd.toLowerCase() === cleanName
+      );
+      
+      // Show verification result
+      if (isVerified) {
+        feedbackContainer.appendChild(
+          createFeedbackCard('success', `Verified! @${cleanName} is a verified Victus Global BD`)
+        );
+      } else {
+        feedbackContainer.appendChild(
+          createFeedbackCard('error', `Not verified! @${cleanName} is not a verified Victus Global BD`)
+        );
+      }
+      
+      // Always show the warning note
+      feedbackContainer.appendChild(
+        createFeedbackCard('warning', 'Note: BDs will never ask for funds and always contact our main page on X to verify the conversation')
+      );
+    });
+  </script>
+</body>
+</html>
